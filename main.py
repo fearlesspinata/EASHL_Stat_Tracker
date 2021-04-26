@@ -13,4 +13,4 @@ def getStats(teamID, platform):
 
 stats = getStats(teamId, platform)
 
-pprint.pprint(stats[0]['players']['73254']['180231983'])
+pprint.pprint(stats[0]['players']['73254']['1716353852'])

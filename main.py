@@ -71,5 +71,9 @@ with open('tableTemp.html', 'w') as fh:
 
     
 
+<<<<<<< HEAD
 #matchInfo = getMatchHistory(teamId, platform)[0]['clubs'][teamId]['toa']
 #pprint.pprint(matchInfo)
+=======
+pprint.pprint(stats[0]['players']['73254']['1716353852'])
+>>>>>>> dd21aaa932c38a866af30de6ee1e65e1eea36398

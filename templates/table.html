@@ -6,9 +6,9 @@
     <body>
         <table>
             <tr>
-                <th> "{{ playerStatHeader }}" </th>
-                <th> "{{ playerStatHeader }}" </th>
-                <th> "{{ playerStatHeader }}" </th>
+              {% for item in teamStat %}
+                <th> "{{ item }}" </th>
+              {% endfor %}
             </tr>
             <td> "{{ playerStat }}" </td>
             <td> "{{ playerStat }}" </td>

@@ -57,23 +57,15 @@ def getTeamStats(teamId):
     teamStats = matchInfo['clubs'][teamId]
     matchDict['scoreString'] = teamStats['scoreString']
     matchDict['shots'] = teamStats['shots']
-    matchDict['name'] = teamStats['name']
+    #matchDict['name'] = teamStats['name']
     matchDict['toa'] = convertSeconds(int(teamStats['toa'])) 
     return matchDict
-
+myDict = {'skgoals': 0, 'skassists': 0, 'skplusmin': 0}
+getTeamStats(teamId)
 template = env.get_template('table.html')
-outputFromFile = template.render(playerStat ='variables', playerStatHeader='here')
+outputFromFile = template.render(playerStat ='variables', teamStat = myDict)
 
 with open('tableTemp.html', 'w') as fh:
     fh.write(outputFromFile)
     fh.close()
 
-
-    
-
-<<<<<<< HEAD
-#matchInfo = getMatchHistory(teamId, platform)[0]['clubs'][teamId]['toa']
-#pprint.pprint(matchInfo)
-=======
-pprint.pprint(stats[0]['players']['73254']['1716353852'])
->>>>>>> dd21aaa932c38a866af30de6ee1e65e1eea36398

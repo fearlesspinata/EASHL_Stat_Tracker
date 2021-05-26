@@ -1,18 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <link rel="stylesheet" href="tables.css">
+      <style>
+      th, td {
+        padding: 5px;
+        text-align: left;
+      }
+      </style>
     </head>
     <body>
         <table>
             <tr>
               {% for item in teamStat %}
-                <th> "{{ item }}" </th>
+                <th> {{ item }} </th>
               {% endfor %}
             </tr>
-            <td> "{{ playerStat }}" </td>
-            <td> "{{ playerStat }}" </td>
-            <td> "{{ playerStat }}" </td>
+              {% for item in teamValues %}
+                <td> {{ item }} </td>
+              {% endfor %}
         </table>
     </body>
 </html>

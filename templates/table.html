@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="tables.css">
-    </head>
     <body>
         <table>
             <tr>
-                <th> "{{ playerStatHeader }}" </th>
-                <th> "{{ playerStatHeader }}" </th>
-                <th> "{{ playerStatHeader }}" </th>
+                {% for key, value in teams.items() %}
+                <th> {{ value }} </th>
+                {% endfor %}
             </tr>
-            <td> "{{ playerStat }}" </td>
-            <td> "{{ playerStat }}" </td>
-            <td> "{{ playerStat }}" </td>
+            {% for key, value in teamStats.items() %}
+            <tr>
+                <td> {{ key }} </td>
+                <td> {{ value }} </td>
+            </tr>
+            {% endfor %}
         </table>
     </body>
 </html>

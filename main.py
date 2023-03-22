@@ -2,10 +2,9 @@ import requests
 from bs4 import BeautifulSoup as bsoup
 from jinja2 import Environment, PackageLoader, select_autoescape
 from datetime import timedelta
-import pprint
 
-#teamId = '1375'
-#platform = input('What is the platform of the player you\'re searching? (enter ps4 or xboxone): ').lower()
+teamId = '1375'
+platform = input('What is the platform of the player you\'re searching? (enter ps4 or xboxone): ').lower()
 env = Environment(
     loader=PackageLoader('nhl21Stats', 'templates'),
     autoescape=select_autoescape(['html', 'xml'])
@@ -52,14 +51,28 @@ def getPlayerStats(getPlayerId):
         return goalieDict
                 
 def getTeamStats(teamId):
-    matchDict = {'scoreString': 0, 'shots': 0, 'name': 0, 'toa': 0}
+    matchDict = {'Score': 0, 'Shots': 0, 'TOA': 0, 'PPG': 0, 'PIM': 0, 'SHG': 0, 'Pass': 0, 'Hits': 0, 'Name': 0 }
     matchInfo = getMatchHistory(teamId, platform)[0]
     teamStats = matchInfo['clubs'][teamId]
-    matchDict['scoreString'] = teamStats['scoreString']
-    matchDict['shots'] = teamStats['shots']
-    matchDict['name'] = teamStats['name']
-    matchDict['toa'] = convertSeconds(int(teamStats['toa'])) 
+    matchDict['Score'] = teamStats['scoreString']
+    matchDict['Shots'] = teamStats['shots']
+    matchDict['Name'] = teamStats['details']['name']
+    matchDict['TOA'] = convertSeconds(int(teamStats['toa'])) 
+    matchDict['PPG'] = teamStats['ppg']
+    matchDict['PIM'] = matchInfo['aggregate'][teamId]['skpim']
+    matchDict['SHG'] = matchInfo['aggregate'][teamId]['skshg']
+    matchDict['Pass'] = '{:.1%}'.format(int(matchInfo['aggregate'][teamId]['skpasses'])/int(matchInfo['aggregate'][teamId]['skpassattempts']))
+    matchDict['Hits'] = matchInfo['aggregate'][teamId]['skhits']
     return matchDict
+
+def main():
+    teamStats = getTeamStats(teamId)
+    template = env.get_template('table.html')
+    outputFromFile = template.render(teamValues = teamStats.values(), teamStat = teamStats)
+    with open('tableTemp.html', 'w') as fh:
+        fh.write(outputFromFile)
+        fh.close()
+main()
 
 #template = env.get_template('table.html')
 #outputFromFile = template.render(playerStat ='variables', playerStatHeader='here')
